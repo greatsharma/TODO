@@ -1,7 +1,8 @@
-import json
 import re
+import json
 import urllib
 import requests
+
 
 class BotConnector():
     # make timeout a property
