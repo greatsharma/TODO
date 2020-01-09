@@ -1,12 +1,15 @@
+import os
 import re
 import json
-from pyChat.dbHelper import DBHelper
-from pyChat.botConnector import BotConnector
+from utils.dbHelper import  DBHelper
+from utils.botConnector import BotConnector
 
 
-BOT_TOKEN = 'your bot token'
-URL = 'https://api.telegram.org/bot{}/'.format(BOT_TOKEN)
+TOKEN = os.environ['TODO_TOKEN']
+TODO_WEBHOOK_ENDPOINT = os.environ['TODO_WEBHOOK_ENDPOINT']
 
+# conn = BotConnector(TOKEN)
+#conn.set_webhook(TODO_WEBHOOK_ENDPOINT)
 
 def create_list(conn, db, chat_id, msg):
     item = msg.split()
@@ -175,7 +178,7 @@ def handle_updates(conn, db, updates):
 
 
 def bot_driver():
-    conn = BotConnector(URL)
+    conn = BotConnector(TOKEN)
     db = DBHelper('TODO_DB') # use mongo db instead
 
     if not db.connect_db():
