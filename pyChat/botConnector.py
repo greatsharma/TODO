@@ -4,50 +4,41 @@ import urllib
 import requests
 
 class BotConnector():
+    # make timeout a property
     
-    def __init__(self, url):
-        self.URL = url
+    def __init__(self, token):
+        self.base_url_ = f'https://api.telegram.org/bot{token}/'
 
-    
-    def get_url(self, url):
+    def _get_url(self, url):
         response = requests.get(url)
-        content = response.content.decode('utf8')
+        response = response.content.decode('utf8')
+        return json.loads(response)
 
-        return content
-
-    
-    def get_json_from_url(self, url):
-        content = self.get_url(url)
-        js_content = json.loads(content)
-
-        return js_content
-
+    def set_webhook(self, endpoint):
+        print('\nsetting webhook...(this may take a while)')
+        url = self.base_url_ + f'setWebhook?url={endpoint}'
+        response = self._get_url(url)
+        if not response['ok']:
+            raise Exception('unable to set webhook!')
 
     def get_updates(self, offset=None):
-        url = self.URL + 'getUpdates?timeout=100'
-
+        url = self.base_url_ + 'getUpdates?timeout=100'
         if offset:
             url += '&offset={}'.format(offset)
-            
-        updates = self.get_json_from_url(url)
-
+        updates = self._get_url(url)
         return updates
 
     
     def send_message(self, chat_id, msg, reply_markup = None):
         msg = urllib.parse.quote_plus(msg)
-        url = self.URL + 'sendMessage?chat_id={}&text={}'.format(chat_id, msg)
-        
+        url = self.base_url_ + 'sendMessage?chat_id={}&text={}'.format(chat_id, msg)
         if reply_markup:
-            url += '&reply_markup={}'.format(reply_markup)
-            
-        self.get_url(url)
+            url += '&reply_markup={}'.format(reply_markup)  
+        self._get_url(url)
 
 
     def get_last_updateId(self, updates):
         num_updates = len(updates['result'])
         last_update_index = num_updates - 1
-        
         last_update_id = updates['result'][last_update_index]['update_id']
-        
         return last_update_id

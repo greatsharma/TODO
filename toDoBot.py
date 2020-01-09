@@ -176,7 +176,7 @@ def handle_updates(conn, db, updates):
 
 def bot_driver():
     conn = BotConnector(URL)
-    db = DBHelper('TO_DO_db') # use mongo db instead
+    db = DBHelper('TODO_DB') # use mongo db instead
 
     if not db.connect_db():
         return

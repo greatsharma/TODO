@@ -185,8 +185,4 @@ class DBHelper():
 
     def close_connection(self):
         self.conn.close()
-
-        if self.conn == None:
-            return True
-        else:
-             return False
+        return self.conn is None
