@@ -1,15 +1,9 @@
 import os
 import re
 import json
-from utils.dbHelper import  DBHelper
-from utils.botConnector import BotConnector
+from utils.db_helper import  DBHelper
+from utils.bot_connector import BotConnector
 
-
-TOKEN = os.environ['TODO_TOKEN']
-TODO_WEBHOOK_ENDPOINT = os.environ['TODO_WEBHOOK_ENDPOINT']
-
-# conn = BotConnector(TOKEN)
-#conn.set_webhook(TODO_WEBHOOK_ENDPOINT)
 
 def create_list(conn, db, chat_id, msg):
     item = msg.split()
