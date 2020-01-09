@@ -3,13 +3,13 @@ import sqlite3
 
 class DBHelper():
     
-    def __init__(self, dbname):
-        self.dbname = dbname
+    def __init__(self, dbname_):
+        self.dbname_ = dbname_
 
 
     def connect_db(self):
         try:
-            self.conn = sqlite3.connect(self.dbname)
+            self.conn = sqlite3.connect(self.dbname_)
         except Exception as e:
             print('\nunable to connect to db, error descr -> \n{}'.format(e))
             return False
@@ -185,8 +185,4 @@ class DBHelper():
 
     def close_connection(self):
         self.conn.close()
-
-        if self.conn == None:
-            return True
-        else:
-             return False
+        return self.conn is None
