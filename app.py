@@ -11,7 +11,6 @@ TODO_WEBHOOK_ENDPOINT = os.environ['TODO_WEBHOOK_ENDPOINT']
 conn = BotConnector(TOKEN)
 # conn.set_webhook(TODO_WEBHOOK_ENDPOINT)
 
-
 db = DBHelper('TODO_DB')
 db.connect_db()
 db.create_table('items', {'owner_id': 'text', 'list_name': 'text', 'item_name': 'text'})
@@ -21,7 +20,6 @@ db.create_index('items', 'item_name', 'itemIndex', 'ASC')
 
 
 app = Flask(__name__)
-
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
