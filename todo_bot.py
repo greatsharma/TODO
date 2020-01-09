@@ -151,7 +151,7 @@ def _view_list(conn, db, chat_id, msg):
 
 
 def _show_lists_name(conn, db, chat_id):
-    all_lists = db.advance_search('SELECT DISTINCT list_name FROM items WHERE owner_id = "{}"'.format(chat_id))
+    all_lists = db.advanced_search('SELECT DISTINCT list_name FROM items WHERE owner_id = "{}"'.format(chat_id))
                 
     lists_name = []
     for l_name in all_lists:

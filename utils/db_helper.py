@@ -172,13 +172,13 @@ class DBHelper():
         else: return len(rows)
 
 
-    def advance_search(self, query):
+    def advanced_search(self, query):
         try:
             cur = self.conn.cursor()
             cur.execute(query)
             rows = cur.fetchall()
         except Exception as e:
-            print('\nunable to advance search, error descr -> \n{}'.format(e))
+            print('\nunable to advanced search, error descr -> \n{}'.format(e))
 
         return rows
 
